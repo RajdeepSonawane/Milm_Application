@@ -79,7 +79,7 @@ ${message}`;
 
                   <Stack direction="row" spacing={2} alignItems="center">
                     <LocationOnIcon color="primary" />
-                    <Typography>Complex, Studio Road, inside D-Mart Lane, near Nahar Amrit Shakti, LOK Milan Colony, Chandivali, Andheri East, Mumbai, Maharashtra 400072</Typography>
+                    <Typography>At post Brhanpur, Opposite Aarogya Kendra, Baramati, Pune, 413102</Typography>
                   </Stack>
                 </Stack>
               </motion.div>

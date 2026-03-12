@@ -101,12 +101,12 @@ const styles = {
   appBar: {
   bgcolor: "#1565c0",
   borderBottom: "1px solid rgba(0,0,0,0.1)",
-  py: 1.5, // adds vertical padding
+  py: 0.5
 },
 
   toolbar: {
   justifyContent: "space-between",
-  minHeight: "100px !important", // 👈 increase height
+  minHeight: "70px !important", // 👈 increase height
 },
 
   logo: {

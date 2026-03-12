@@ -1,5 +1,4 @@
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Box,
   Container,
@@ -7,16 +6,16 @@ import {
   Card,
   CardContent,
   Button,
-  Stack,
-  Grid2
+  Stack
 } from "@mui/material";
+
+import Grid2 from "@mui/material/Grid2";
+
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import MailIcon from "@mui/icons-material/Mail";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import deliveryPhoto from "../assets/delivery-photo.jpg";
-import logisticsoperation from "../assets/logistics-operation.jpg";
-import endtoendsupport from "../assets/end-to-end.jpg";
-import manpower from "../assets/manpower-supply.jpg";
+import endtoend from "../assets/end-to-end.jpg";
+import ceoImage from "../assets/ceo.jpeg"
 
 import Header from "../header";
 import Footer from "../footer";
@@ -29,642 +28,569 @@ const SERVICES = [
   { title: "Payroll & Reporting Support", desc: "Timely payroll & reporting support." }
 ];
 
-
+const fadeUp = {
+  hidden: { opacity: 0, y: 80 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8 }
+  }
+};
 
 export default function HomePage() {
-  const ref = useRef(null);
- const { scrollYProgress } = useScroll({ target: ref });
-
-/* HERO */
-const yHero = useTransform(scrollYProgress, [0, 0.25], [0, 200]);
-const opacityHero = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
-
-/* ABOUT (cards) */
-const aboutY = useTransform(scrollYProgress, [0.15, 0.45], [0, -120]);
-const aboutOpacity = useTransform(scrollYProgress, [0.2, 0.45], [1, 0.85]);
-
-/* RELIABLE */
-const reliableY = useTransform(scrollYProgress, [0.35, 0.65], [150, 0]);
-const reliableOpacity = useTransform(scrollYProgress, [0.35, 0.65], [1, 0.9]);
-  const [active, setActive] = useState("center");
-
-
-
   return (
-    <Box ref={ref}>
+    <Box>
       <Header />
 
       {/* HERO */}
-      <Box component={motion.div} style={{ y: yHero, opacity: opacityHero }} sx={styles.hero}>
-        <Container>
-          <Typography sx={styles.heroTitle}>
-            Move In  <br /> Link Mobility
-          </Typography>
+      <Box
+  component={motion.div}
+  sx={styles.hero}
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 1 }}
+>
+        <Container maxWidth="md">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+          >
+            <Typography sx={styles.heroTitle}>
+              Move In <br /> Link Mobility
+            </Typography>
 
-          <Typography sx={styles.heroTagline}>
-            Travel in Elegance…
-          </Typography>
-
-          
+            <Typography sx={styles.heroTagline}>
+              Travel in Elegance…
+            </Typography>
+          </motion.div>
         </Container>
       </Box>
 
       {/* ABOUT */}
+      <Box
+  component={motion.div}
+  sx={styles.aboutSection}
+  initial={{ opacity: 0, y: 80 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.4 }}
+  transition={{ duration: 0.8 }}
+>
+        <Container maxWidth="md">
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <Typography variant="h2" fontWeight={700} gutterBottom sx={{ color: "#fff" }}>
+              About Us
+            </Typography>
+
+            <Typography variant="h6" sx={styles.aboutText}>
+               <strong>Move In – Link Mobility</strong> founded on 10 July 2024, is an operations-driven logistics support company specializing in last-mile and on-ground execution for large enterprise partners such as Amazon.
+                     Built on the foundation of operational excellence, sustainability, and performance-driven execution, the company is committed to delivering seamless logistics solutions tailored to evolving business needs.
+            </Typography>
+
+            <Typography variant="h6" sx={styles.aboutText}>
+               The organization embraced sustainability from the beginning. Following the “Go Green” initiative, operations commenced with a fleet of 20+ electric vehicles (EVs).
+        Today, we are leading the industry with 300+ EVs actively operating in the market, positioning ourselves as a forward-thinking and environmentally responsible logistics partner.
+        In a short span of time, we successfully established our brand as a trusted and integrated logistics service provider.
+            </Typography>
+
+          </motion.div>
+
+        </Container>
+      </Box>
+
       <Box 
       component={motion.div}
-      style={{ y: aboutY, opacity: aboutOpacity }}
-      sx={styles.about}>
-        
-      <Box sx={styles.cardsWrapper}>
-  {/* LEFT CARD */}
-  <motion.div
-  onClick={() => setActive("left")}
-  animate={{
-    x: active === "left" ? 0 : -180,
-    scale: active === "left" ? 1.05 : 0.9,
-    rotate: active === "left" ? 0 : -8,
-    zIndex: active === "left" ? 3 : 1
-  }}
-  transition={{ duration: 0.5 }}
->
-  <Box sx={styles.cardBase}>
-    <Box component="img" src={logisticsoperation} sx={styles.cardImage} />
-    <Box sx={styles.cardOverlay}>
-      <Typography sx={styles.cardText}>
-        Logistics Operations
-      </Typography>
-    </Box>
-  </Box>
-</motion.div>
+  sx={styles.ceoSection}
+  initial={{ opacity: 0, y: 80 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.4 }}
+  transition={{ duration: 0.8 }}>
+  <Container maxWidth="xl">
 
-  {/* CENTER CARD */}
-  <motion.div
-  onClick={() => setActive("center")}
-  animate={{
-    x:
-      active === "left"
-        ? 180
-        : active === "right"
-        ? -180
-        : 0,
-    scale: active === "center" ? 1.05 : 0.9,
-    zIndex: active === "center" ? 3 : 1
-  }}
-  transition={{ duration: 0.5 }}
->
-  <Box sx={styles.cardBase}>
-    <Box component="img" src={endtoendsupport} sx={styles.cardImage} />
-    <Box sx={styles.cardOverlay}>
-      <Typography sx={{ ...styles.cardText, fontSize: 22 }}>
-        End-to-End Support
-      </Typography>
-    </Box>
-  </Box>
-</motion.div>
+    <Card sx={styles.ceoCard}>
+      <Grid2 container spacing={6} alignItems="center">
 
-  {/* RIGHT CARD */}
- <motion.div
-  onClick={() => setActive("right")}
-  animate={{
-    x: active === "right" ? 0 : 180,
-    scale: active === "right" ? 1.05 : 0.9,
-    rotate: active === "right" ? 0 : 8,
-    zIndex: active === "right" ? 3 : 1
-  }}
-  transition={{ duration: 0.5 }}
->
-  <Box sx={styles.cardBase}>
-    <Box component="img" src={manpower} sx={styles.cardImage} />
-    <Box sx={styles.cardOverlay}>
-      <Typography sx={styles.cardText}>
-        Manpower Solutions
-      </Typography>
-    </Box>
-  </Box>
-</motion.div>
+        {/* LEFT IMAGE */}
+        <Grid2 size={{ xs: 12, md: 5 }}>
+
+          <Box sx={styles.ceoImageBox}>
+            <Box component="img" src={ceoImage} sx={styles.ceoImage} />
+
+            <Typography sx={styles.ceoName}>
+              Miss. Dipti Chandgude 
+            </Typography>
+
+            <Typography sx={styles.ceoRole}>
+              Founder & CEO
+            </Typography>
+          </Box>
+
+        </Grid2>
+
+
+        {/* RIGHT TEXT */}
+        <Grid2 size={{ xs: 12, md: 7 }}>
+
+          <Typography sx={styles.ceoQuote}>
+            “ Move In – Link Mobility is a company where services meets excellence.
+            Every day, our team is dedicated to ensuring seamless solutions
+            that propel businesses forward. With a relentless focus on
+            reliability, we navigate the complexities of global logistics
+            with precision and efficiency. Innovation drives our every
+            move. We leverage cutting edge technology and strategic
+            partnerships to streamline our processes and deliver
+            unparalleled service to our clients. ”
+          </Typography>
+
+        </Grid2>
+
+      </Grid2>
+    </Card>
+
+  </Container>
 </Box>
-</Box>
-{/* ================== reliable scalable ================== */}
-<Box 
- component={motion.div}
- style={{ y: reliableY, opacity: reliableOpacity }}
- sx={styles.reliableSection}>
-  <Grid2 container sx={{ minHeight: "100vh" }}>
-    
-    {/* LEFT HALF — IMAGE */}
-    <Grid2 size = {{ xs: 12, md: 6 }}
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        p: 4
-      }}
-    >
+
+      {/* RELIABLE SECTION */}
       <Box
-        component="img"
-        src={deliveryPhoto}
-        sx={styles.circleImage}
-      />
-    </Grid2>
+  component={motion.div}
+  sx={styles.reliableSection}
+  initial={{ opacity: 0, y: 80 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.4 }}
+  transition={{ duration: 0.8 }}
+>
 
-    {/* RIGHT HALF — TEXT */}
-    <Grid2 size={{ xs: 12, md: 6 }}
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: { xs: "center", md: "flex-start" },
-        textAlign: { xs: "center", md: "left" },
-        p: { xs: 4, md: 8 }
-      }}
-    >
-      <Typography sx={styles.reliableTitle}>
-        Reliable. Scalable.
-      </Typography>
+        <Container maxWidth="lg">
 
-      <Typography sx={styles.reliableSubtitle}>
-        Performance Driven.
-      </Typography>
+          <Grid2 container spacing={6} alignItems="center">
 
-      <Box sx={styles.reliableDivider} />
+            <Grid2 size={{ xs: 12, md: 6 }}>
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                <Box component="img" src={endtoend} sx={styles.circleImage} />
+              </motion.div>
+            </Grid2>
 
-      <Typography sx={styles.reliableText}>
-        <strong>Move In – Link Mobility</strong> is an operations-driven logistics
-        support company specializing in managing last-mile and on-ground
-        execution for large enterprise partners like Amazon.
-      </Typography>
+            <Grid2 size={{ xs: 12, md: 6 }}>
 
-      <Typography sx={styles.reliableSmallText}>
-        Our approach ensures seamless operations, zero callouts, and
-        consistent business growth. We focus on manpower deployment,
-        RTS & cash closure management, and daily operations control.
-      </Typography>
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
 
-      <Button endIcon={<ArrowForwardIcon />} sx={styles.readMoreBtn}>
-        Read Our Story
-      </Button>
-    </Grid2>
+                <Typography sx={styles.reliableTitle}>
+                  Reliable. Scalable.
+                </Typography>
 
-  </Grid2>
-</Box>
+                <Typography sx={styles.reliableSubtitle}>
+                  Performance Driven.
+                </Typography>
+
+                <Box sx={styles.divider} />
+
+                <Typography variant="body1" sx={styles.reliableText}>
+                  Move In – Link Mobility is an operations-driven logistics
+                  company specializing in last-mile delivery execution.
+                </Typography>
+
+                <Typography variant="body1" sx={styles.reliableSmallText}>
+                  We focus on manpower deployment, daily operations control,
+                  and performance-driven logistics execution.
+                </Typography>
+
+                <Button endIcon={<ArrowForwardIcon />} sx={styles.readMoreBtn}>
+                  Read Our Story
+                </Button>
+
+              </motion.div>
+
+            </Grid2>
+
+          </Grid2>
+
+        </Container>
+
+      </Box>
 
       {/* SERVICES */}
-<Box sx={styles.servicesSection}>
-  <Container maxWidth="xl">
-    <Grid2 container spacing={6} alignItems="center">
-      
-      {/* LEFT SIDE */}
-      <Grid2 size={{ xs: 12, md: 5 }}>
-        <Typography sx={styles.servicesTitle}>
-          Our Services
-        </Typography>
+      <Box
+  component={motion.div}
+  sx={styles.servicesSection}
+  initial={{ opacity: 0, y: 80 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.4 }}
+  transition={{ duration: 0.8 }}
+>
 
-        <Typography sx={styles.servicesDescription}>
-          We provide complete logistics support solutions designed to
-          streamline operations, enhance workforce efficiency, and
-          ensure seamless execution across all levels of business.
-        </Typography>
+        <Container maxWidth="lg">
 
-        <Button
-          variant="outlined"
-          endIcon={<ArrowForwardIcon />}
-          sx={styles.servicesButton}
-        >
-          Explore More
-        </Button>
-      </Grid2>
+          <Grid2 container spacing={6}>
 
-      {/* RIGHT SIDE */}
-      <Grid2 size={{ xs: 12, md: 7 }}>
-        <Grid2 container spacing={3}>
-          {SERVICES.map((service, index) => (
-            <Grid2 size={{ xs: 12, sm: 6 }} key={index}>
-              <Card
-                component={motion.div}
-                whileHover={{ y: -6 }}
-                transition={{ duration: 0.3 }}
-                sx={styles.serviceCard}
+            <Grid2 size={{ xs: 12, md: 5 }}>
+
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
               >
-                <CardContent>
-                  <Typography sx={styles.serviceTitle}>
-                    {service.title}
-                  </Typography>
-                  <Typography sx={styles.serviceDesc}>
-                    {service.desc}
-                  </Typography>
-                </CardContent>
-              </Card>
+
+                <Typography sx={styles.servicesTitle}>
+                  Our Services
+                </Typography>
+
+                <Typography sx={styles.servicesDescription}>
+                  We provide complete logistics support solutions designed
+                  to streamline operations and enhance workforce efficiency.
+                </Typography>
+
+                <Button
+                  variant="outlined"
+                  endIcon={<ArrowForwardIcon />}
+                  sx={styles.servicesButton}
+                >
+                  Explore More
+                </Button>
+
+              </motion.div>
+
             </Grid2>
-          ))}
-        </Grid2>
-      </Grid2>
 
-    </Grid2>
-  </Container>
-</Box>
+            <Grid2 size={{ xs: 12, md: 7 }}>
 
-      {/* CONTACT CTA */}
-     {/* ================= CONTACT SECTION ================= */}
-<Box sx={styles.contactSection}>
-  <Container maxWidth="xl">
-    <Grid2 container spacing={8} alignItems="center">
+              <Grid2 container spacing={3}>
 
-      {/* LEFT SIDE — JOIN TEAM */}
-      <Grid2 size={{ xs: 12, md: 6 }}>
-        <Typography sx={styles.joinTitle}>
-          Join Our Team
-        </Typography>
+                {SERVICES.map((service, index) => (
 
-        <Typography sx={styles.joinSubtitle}>
-          Build your career in logistics operations with a 
-          growing team dedicated to excellence.
-        </Typography>
+                  <Grid2 size={{ xs: 12, sm: 6 }} key={index}>
 
-        <Box sx={styles.jobList}>
-          <Typography sx={styles.jobItem}>
-            Area / Territory Manager
-          </Typography>
-          <Typography sx={styles.jobItem}>
-            Team Lead – Operations
-          </Typography>
-          <Typography sx={styles.jobItem}>
-            Operations Executive
-          </Typography>
-        </Box>
+                    <motion.div
+                      variants={fadeUp}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                    >
 
-        <Button variant="contained" sx={styles.applyBtn}>
-          Apply Now
-        </Button>
-      </Grid2>
+                      <Card sx={styles.serviceCard}>
+                        <CardContent>
 
-      {/* RIGHT SIDE — GET IN TOUCH CARD */}
-      <Grid2 size={{ xs: 12, md: 6 }}>
-        <Box sx={styles.contactCard}>
-          <Typography sx={styles.contactTitle}>
-            Get In Touch
-          </Typography>
+                          <Typography sx={styles.serviceTitle}>
+                            {service.title}
+                          </Typography>
 
-          <Stack spacing={3} mt={4}>
-            <Stack direction="row" spacing={2} alignItems="center">
-              <MailIcon sx={{ color: "#fff" }} />
-              <Typography sx={styles.contactText}>
-                support@moveinlinkmobility.com
+                          <Typography sx={styles.serviceDesc}>
+                            {service.desc}
+                          </Typography>
+
+                        </CardContent>
+                      </Card>
+
+                    </motion.div>
+
+                  </Grid2>
+
+                ))}
+
+              </Grid2>
+
+            </Grid2>
+
+          </Grid2>
+
+        </Container>
+
+      </Box>
+
+      {/* CONTACT */}
+      <Box
+  component={motion.div}
+  sx={styles.contactSection}
+  initial={{ opacity: 0, y: 80 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.4 }}
+  transition={{ duration: 0.8 }}
+>
+
+        <Container maxWidth="lg">
+
+          <Grid2 container spacing={8} alignItems="center">
+
+            <Grid2 size={{ xs: 12, md: 6 }}>
+
+              <Typography sx={styles.joinTitle}>
+                Join Our Team
               </Typography>
-            </Stack>
 
-            <Stack direction="row" spacing={2} alignItems="center">
-              <LocationOnIcon sx={{ color: "#fff" }} />
-              <Typography sx={styles.contactText}>
-                MILM – Operations Location
+              <Typography sx={styles.joinSubtitle}>
+                Build your career in logistics operations with a growing team.
               </Typography>
-            </Stack>
-          </Stack>
 
-          
-        </Box>
-      </Grid2>
+              <Stack spacing={2} mb={4}>
+                <Typography sx={styles.jobItem}>Area / Territory Manager</Typography>
+                <Typography sx={styles.jobItem}>Team Lead – Operations</Typography>
+                <Typography sx={styles.jobItem}>Operations Executive</Typography>
+              </Stack>
 
-    </Grid2>
-  </Container>
-</Box>
+              <Button variant="contained" sx={styles.applyBtn}>
+                Apply Now
+              </Button>
+
+            </Grid2>
+
+            <Grid2 size={{ xs: 12, md: 6 }}>
+
+              <Box sx={styles.contactCard}>
+
+                <Typography sx={styles.contactTitle}>
+                  Get In Touch
+                </Typography>
+
+                <Stack spacing={3} mt={4}>
+
+                  <Stack direction="row" spacing={2}>
+                    <MailIcon />
+                    <Typography>support@moveinlinkmobility.com</Typography>
+                  </Stack>
+
+                  <Stack direction="row" spacing={2}>
+                    <LocationOnIcon />
+                    <Typography>MILM – Operations Location</Typography>
+                  </Stack>
+
+                </Stack>
+
+              </Box>
+
+            </Grid2>
+
+          </Grid2>
+
+        </Container>
+
+      </Box>
 
       <Footer />
     </Box>
   );
 }
 
-/* ================= STYLES ================= */
-
 const styles = {
+
   hero: {
-    minHeight: "100vh",
+    minHeight: "90vh",
     display: "flex",
     alignItems: "center",
     textAlign: "center",
-    bgcolor: "#212735",
+    background: "#212735",
     color: "#fff"
   },
 
-  heroSubtitle: {
-    opacity: 0.7,
-    mb: 5
-  },
-
-  section: {
-    py: 10
-  },
-
-  aboutImage: {
-    width: "100%",
-    borderRadius: 3
-  },
-
-  joinTitle: {
-  fontFamily: "serif",
-  fontSize: { xs: 36, md: 56 },
-  fontWeight: 500,
-  mb: 3
-},
-
-joinSubtitle: {
-  fontSize: 18,
-  color: "#e6e3e3",
-  mb: 5,
-  maxWidth: 420
-},
-
-jobList: {
-  mb: 5
-},
-
-jobItem: {
-  fontSize: 18,
-  py: 2,
-  borderBottom: "1px solid #ddd",
-  color: "#cdc9c9"
-},
-applyBtn: {
-  mt: 2,
-  backgroundColor: "#000",
-  borderRadius: "30px",
-  px: 5,
-  py: 1.5,
-  textTransform: "none",
-  fontSize: 16,
-  "&:hover": {
-    backgroundColor: "#222"
-  }
-},
-contactCard: {
-  backgroundColor: "#000",
-  color: "#fff",
-  borderRadius: "40px",
-  padding: "60px 50px",
-  minHeight: 400,
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between"
-},
-
-contactTitle: {
-  fontFamily: "serif",
-  fontSize: { xs: 32, md: 48 },
-  fontWeight: 500
-},
-
-contactText: {
-  fontSize: 16,
-  opacity: 0.9
-},
-
-contactBottomText: {
-  fontSize: 20,
-  opacity: 0.5,
-  mt: 6
-},
-
-  servicesSection: {
-  minHeight: "100vh",
-  background: "linear-gradient(135deg, #141a20, #1f2937)",
-  color: "#fff",
-  display: "flex",
-  alignItems: "center",
-  py: 12
-},
-
-servicesTitle: {
-  fontFamily: "serif",
-  fontSize: { xs: 36, md: 78 },
-  fontWeight: 500,
-  mb: 3
-},
-
-servicesDescription: {
-  fontSize: 18,
-  lineHeight: 1.8,
-  opacity: 0.8,
-  mb: 4
-},
-
-servicesButton: {
-  color: "#fff",
-  borderColor: "#fff",
-  borderRadius: 0,
-  px: 4,
-  py: 1.5,
-  "&:hover": {
-    backgroundColor: "#fff",
-    color: "#000"
-  }
-},
-
-serviceCard: {
-  height: "100%",
-  borderRadius: 3,
-  backgroundColor: "#1f2937",
-  color: "#fff",
-  transition: "0.3s",
-  "&:hover": {
-    backgroundColor: "#2c3e50"
-  }
-},
-
-serviceTitle: {
-  fontSize: 18,
-  fontWeight: 600,
-  mb: 1
-},
-
-serviceDesc: {
-  fontSize: 14,
-  opacity: 0.8
-}
-,
-  contactSection: {
-    bgcolor: "#111827",
-    color: "#fff",
-    py: 10
-  },
   heroTitle: {
-  fontFamily: "serif",
-  fontWeight: 500,
-  fontSize: {
-    xs: "48px",
-    sm: "64px",
-    md: "96px",
-    lg: "190px"
+    fontFamily: "serif",
+    fontSize: { xs: 42, md: 90 },
+    fontWeight: 500
   },
-  lineHeight: 1.1,
-  letterSpacing: "2px",
-  textAlign: "center",
-  mb: 3
-},
 
-heroTagline: {
-  fontFamily: "serif",
+  heroTagline: {
   fontStyle: "italic",
-  opacity: 0.7,
-  fontSize: {
-    xs: "18px",
-    md: "86px"
-  }
+  fontSize: { xs: 20, md: 50 },
+  opacity: 0.7
 },
-cardsWrapper: {
-    position: "relative",
-    width: "100%",
-    maxWidth: 1400,
-    height: "100%",
-    minHeight: "100vh", 
+
+  aboutSection: {
+    minHeight: "90vh",
+    py: { xs: 8, md: 14 },
     display: "flex",
-    justifyContent: "center",
     alignItems: "center",
-    perspective: "1200px",
-    overflow: "visible",
-  },
-
-  cardBase: {
-  position: "absolute",
-  top: "50%",                 // center vertically
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-
-  width: 620,
-  height: 860,
-
-  borderRadius: 20,
-  overflow: "hidden",
-  boxShadow: "0 30px 80px rgba(0,0,0,0.35)",
-  cursor: "pointer",
-},
-
-  leftCard: {
-  position: "absolute",
-  left: { xs: "-20px", md: "-180px" },
-  top: "50%",
-  transform: "translateY(-50%) rotate(-8deg)",
-  zIndex: 1
-},
-
-centerCard: {
-  position: "relative",
-  zIndex: 3,
-  transform: "scale(1.05)"
-},
-
-rightCard: {
-  position: "absolute",
-  right: { xs: "-20px", md: "-180px" },
-  top: "50%",
-  transform: "translateY(-50%) rotate(8deg)",
-  zIndex: 1
-},
-
-  cardImage: {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    transition: "0.6s",
-    "&:hover": {
-      transform: "scale(1.08)"
-    }
-  },
-
-  cardOverlay: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    width: "100%",
-    p: 3,
-    background:
-      "linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0))"
-  },
-
-  cardText: {
+    textAlign: "center",
     color: "#fff",
-    fontWeight: 600,
-    fontSize: 28,
-    textAlign: "center"
-  }
-  ,
-  about: {
-  minHeight: "100vh",
-  marginTop: "-1vh",   // ⭐ pulls up into hero
-  backgroundColor: "#212735", 
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+    background: "linear-gradient(135deg,#3b4a63,#1f2937)"
+  },
+
+  aboutText: {
+  color: "#d1d5db",
+  fontSize: "18px",
+  lineHeight: 1.8,
+  marginTop: "12px",
+  marginBottom: "12px"
 },
 
-reliableSection: {
-  minHeight: "100vh",
-  marginTop: "-18vh",   // ⭐ overlaps with cards
-  backgroundColor: "#212735",
-  backgroundImage: "linear-gradient(135deg, #3b4a63, #1f2937)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-},
-
-circleImageWrapper: {
-  display: "flex",
-  justifyContent: "center",
-},
-
-circleImage: {
-  width: { xs: 260, md: 580 },
-  height: { xs: 260, md: 580 },
+reliableSection: { 
+  minHeight: "90vh",
+  py: { xs: 8, md: 14 },
+    display: "flex",
+    alignItems: "center",
+    textAlign: "center",
+    background: "#212735",
+    color: "#fff"
+ },
+  circleImage: {
+  width: "100%",
+  maxWidth: 420,
+  height: 420,
   borderRadius: "50%",
   objectFit: "cover",
-  filter: "grayscale(100%)",
+  display: "block",
+  margin: "0 auto"
 },
 
 reliableTitle: {
+  fontSize: 60,
   fontFamily: "serif",
-  fontSize: { xs: 36, md: 70 },
-  letterSpacing: 2,
+  marginBottom: 4
 },
 
 reliableSubtitle: {
-  fontFamily: "serif",
+  fontSize: 40,
   fontStyle: "italic",
-  fontSize: { xs: 28, md: 60 },
-  color: "#bfbfbf",
-  mb: 3,
+  marginBottom: 10
 },
 
-reliableDivider: {
+ divider: {
   width: 120,
-  height: 6,
-  backgroundColor: "#888",
-  mb: 3,
+  height: 5,
+  background: "#9CA3AF",
+  margin: "25px 0"
 },
 
-reliableText: {
-  fontSize: 26,
-  lineHeight: 1.8,
-  mb: 2,
+  reliableText: {
+  fontSize: 20,
+  marginBottom: 2,
+  maxWidth: 520
 },
 
 reliableSmallText: {
-  fontSize: 25,
-  color: "#bfbfbf",
-  lineHeight: 1.7,
-  mb: 4,
+  fontSize: 18,
+  opacity: 0.7,
+  marginBottom: 2,
+  maxWidth: 520
+},
+  readMoreBtn: {
+    color: "#fff",
+    borderBottom: "1px solid #fff"
+  },
+
+  servicesSection: {
+    py: { xs: 8, md: 14 },
+    background: "linear-gradient(135deg,#141a20,#1f2937)",
+    color: "#fff"
+  },
+
+  servicesTitle: {
+    fontSize: 70,
+    fontFamily: "serif"
+  },
+
+  servicesDescription: {
+    marginBottom: 20
+  },
+
+  servicesButton: {
+    borderColor: "#fff",
+    color: "#fff"
+  },
+
+  serviceCard: {
+    background: "#1f2937",
+    color: "#fff"
+  },
+
+  serviceTitle: {
+    fontWeight: 600
+  },
+
+  serviceDesc: {
+    opacity: 0.8
+  },
+
+  contactSection: {
+    py: { xs: 8, md: 14 },
+    background: "#111827",
+    color: "#fff"
+  },
+
+  joinTitle: {
+    fontSize: 50,
+    fontFamily: "serif"
+  },
+
+  joinSubtitle: {
+    marginBottom: 2
+  },
+
+  jobItem: {
+    fontSize: 18
+  },
+
+  applyBtn: {
+    background: "#000"
+  },
+
+  contactCard: {
+    background: "#000",
+    padding: 14,
+    borderRadius: 3
+  },
+
+  contactTitle: {
+    fontSize: 40
+  },
+
+  ceoSection: {
+  py: { xs: 8, md: 14 },
+  textAlign: "center",
+  background: "#212735",
+  color: "#fff"
 },
 
-readMoreBtn: {
-  color: "#fff",
-  fontSize: 18,
-  borderBottom: "1px solid #fff",
-  borderRadius: 0,
-  padding: 0,
-  "&:hover": {
-    backgroundColor: "transparent",
-    opacity: 0.7,
-  },
-  contactWrapper: {
-  backgroundColor: "#f4f4f4",
-  py: 15
+ceoCard: {
+  borderRadius: "20px",
+  padding: { xs: "30px", md: "40px" },
+  background: "#d0d0d0",
+  maxWidth: "1100px",
+  margin: "0 auto",
+  boxShadow: "0px 20px 60px rgba(0,0,0,0.15)"
 },
+
+ceoImageBox: {
+  textAlign: "center"
+},
+
+ceoImage: {
+  width: "70%",
+  borderRadius: "12px",
+  marginBottom: "20px"
+},
+
+ceoName: {
+  fontSize: "20px",
+  fontWeight: 600,
+  color: "#050505",
+  textAlign: "center"
+},
+
+ceoRole: {
+  fontSize: 14,
+  color: "#252525"
+},
+
+ceoQuote: {
+  fontSize: "16px",
+  fontStyle: "italic",
+  color: "#6b1f16",
+  lineHeight: 1.9,
+  textAlign: "justify"
 },
 };

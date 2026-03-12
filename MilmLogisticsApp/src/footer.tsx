@@ -65,7 +65,7 @@ export default function Footer() {
               </Link>
 
               <Typography sx={contactText}>
-                Complex, Studio Road, inside D-Mart Lane, near Nahar Amrit Shakti, LOK Milan Colony, Chandivali, Andheri East, Mumbai, Maharashtra 400072
+                At post Brhanpur, Opposite Aarogya Kendra, Baramati, Pune, 413102
               </Typography>
             </Stack>
           </Grid2>
